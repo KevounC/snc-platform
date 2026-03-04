@@ -1,0 +1,45 @@
+import { Link, useRouterState } from "@tanstack/react-router";
+
+import { NAV_LINKS } from "../../config/navigation.js";
+import { UserMenu } from "./user-menu.js";
+import { MobileMenu } from "./mobile-menu.js";
+import styles from "./nav-bar.module.css";
+
+// ── Public API ──
+
+export function NavBar() {
+  const routerState = useRouterState();
+  const currentPath = routerState.location.pathname;
+
+  return (
+    <header className={styles.header}>
+      <nav className={styles.nav} aria-label="Main navigation">
+        <Link to="/" className={styles.logo}>
+          S/NC
+        </Link>
+
+        <ul className={styles.links}>
+          {NAV_LINKS.map((link) => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                className={
+                  currentPath.startsWith(link.to)
+                    ? `${styles.navLink} ${styles.navLinkActive}`
+                    : styles.navLink
+                }
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.right}>
+          <UserMenu />
+          <MobileMenu currentPath={currentPath} />
+        </div>
+      </nav>
+    </header>
+  );
+}

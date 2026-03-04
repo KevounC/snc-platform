@@ -1,0 +1,172 @@
+/* ── Layout Container ── */
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* ── Image Gallery ── */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.mainImageWrapper {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-elevated);
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--color-bg) 0%,
+    var(--color-bg-elevated) 100%
+  );
+}
+
+.thumbnails {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  transition: border-color 0.15s;
+}
+
+.thumbnail:hover {
+  border-color: var(--color-text-muted);
+}
+
+.thumbnailSelected {
+  border-color: var(--color-accent);
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Details Section ── */
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.price {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.creator {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+}
+
+.creatorLink {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.creatorLink:hover {
+  text-decoration: underline;
+}
+
+.variantSection {
+  padding: var(--space-sm) 0;
+}
+
+/* ── Buy Button ── */
+
+.buyButton {
+  padding: var(--space-sm) var(--space-xl);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  align-self: flex-start;
+}
+
+.buyButton:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.buyButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Description ── */
+
+.description {
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.description p {
+  margin-bottom: var(--space-sm);
+}
+
+.description p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Back Link ── */
+
+.backLink {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-top: var(--space-md);
+}
+
+.backLink:hover {
+  color: var(--color-accent);
+}

@@ -1,0 +1,83 @@
+import type React from "react";
+import type { FeedItem } from "@snc/shared";
+
+import { VideoPlayer } from "../media/video-player.js";
+import { buildMediaUrl } from "../../lib/url.js";
+import { ContentMeta } from "./content-meta.js";
+import { SubscribeCta } from "./subscribe-cta.js";
+import styles from "./video-detail.module.css";
+
+// ── Public Types ──
+
+export interface VideoDetailProps {
+  readonly item: FeedItem;
+  readonly locked?: boolean;
+}
+
+// ── Public API ──
+
+export function VideoDetail({
+  item,
+  locked,
+}: VideoDetailProps): React.ReactElement {
+  const posterSrc = buildMediaUrl(item.thumbnailUrl);
+
+  if (locked === true) {
+    return (
+      <div className={styles.videoDetail}>
+        <div className={styles.lockedOverlayContainer}>
+          {posterSrc ? (
+            <img
+              src={posterSrc}
+              alt={`Thumbnail for ${item.title}`}
+              className={styles.lockedThumbnail}
+            />
+          ) : (
+            <div className={styles.lockedThumbnailPlaceholder} />
+          )}
+          <div className={styles.lockedOverlay}>
+            <span className={styles.lockIcon} aria-hidden="true">
+              &#x1F512;
+            </span>
+            <span className={styles.lockedText}>Subscribe to watch</span>
+          </div>
+        </div>
+        <div className={styles.meta}>
+          <ContentMeta
+            title={item.title}
+            creatorName={item.creatorName}
+            publishedAt={item.publishedAt}
+          />
+        </div>
+        <SubscribeCta creatorId={item.creatorId} contentType="video" />
+        {item.description && (
+          <>
+            <hr className={styles.divider} />
+            <p className={styles.description}>{item.description}</p>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  const mediaSrc = buildMediaUrl(item.mediaUrl) ?? "";
+
+  return (
+    <div className={styles.videoDetail}>
+      <VideoPlayer src={mediaSrc} {...(posterSrc !== null ? { poster: posterSrc } : {})} />
+      <div className={styles.meta}>
+        <ContentMeta
+          title={item.title}
+          creatorName={item.creatorName}
+          publishedAt={item.publishedAt}
+        />
+      </div>
+      {item.description && (
+        <>
+          <hr className={styles.divider} />
+          <p className={styles.description}>{item.description}</p>
+        </>
+      )}
+    </div>
+  );
+}

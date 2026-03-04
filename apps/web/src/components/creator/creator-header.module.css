@@ -1,0 +1,169 @@
+/* ── Header Container ── */
+
+.header {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Banner ── */
+
+.bannerWrapper {
+  width: 100%;
+  aspect-ratio: 4 / 1;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bannerPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-elevated) 0%,
+    var(--color-border) 50%,
+    var(--color-bg-elevated) 100%
+  );
+}
+
+/* ── Profile Section (overlaps banner) ── */
+
+.profileSection {
+  margin-top: -48px;
+  padding: 0 var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* ── Avatar ── */
+
+.avatarWrapper {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--color-bg);
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-border) 100%);
+}
+
+/* ── Name + Bio ── */
+
+.displayName {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  margin: var(--space-xs) 0 0 0;
+}
+
+.bio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.bioParagraph {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Subscribe Button ── */
+
+.subscribeButton {
+  align-self: flex-start;
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-xl);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.subscribeButton:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+}
+
+.subscribeButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Subscribed Badge ── */
+
+.subscribedButton {
+  background: var(--color-secondary);
+}
+
+/* ── Tier Selector ── */
+
+.tierSelector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  align-self: flex-start;
+  margin-top: var(--space-sm);
+}
+
+.planSelect {
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  appearance: none;
+  min-width: 200px;
+}
+
+.planSelect:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Login Link (styled as button) ── */
+
+.loginLink {
+  align-self: flex-start;
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-xl);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.loginLink:hover {
+  background: var(--color-accent-hover);
+}

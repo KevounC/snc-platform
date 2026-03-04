@@ -1,0 +1,48 @@
+import { Link } from "@tanstack/react-router";
+import type React from "react";
+import type { CreatorListItem } from "@snc/shared";
+
+import { buildMediaUrl } from "../../lib/url.js";
+import styles from "./creator-card.module.css";
+
+// ── Public Types ──
+
+export interface CreatorCardProps {
+  readonly creator: CreatorListItem;
+}
+
+// ── Public API ──
+
+export function CreatorCard({ creator }: CreatorCardProps): React.ReactElement {
+  const avatarSrc = buildMediaUrl(creator.avatarUrl);
+
+  return (
+    <Link
+      to="/creators/$creatorId"
+      params={{ creatorId: creator.userId }}
+      className={styles.card}
+    >
+      <div className={styles.avatarWrapper}>
+        {avatarSrc ? (
+          <img
+            src={avatarSrc}
+            alt={`${creator.displayName} avatar`}
+            className={styles.avatar}
+            loading="lazy"
+          />
+        ) : (
+          <div className={styles.avatarPlaceholder} />
+        )}
+      </div>
+      <div className={styles.info}>
+        <h3 className={styles.displayName}>{creator.displayName}</h3>
+        {creator.bio && (
+          <p className={styles.bio}>{creator.bio}</p>
+        )}
+        <span className={styles.contentCount}>
+          {creator.contentCount} {creator.contentCount === 1 ? "post" : "posts"}
+        </span>
+      </div>
+    </Link>
+  );
+}

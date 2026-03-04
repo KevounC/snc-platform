@@ -1,0 +1,16 @@
+/* ── Content Metadata Header ── */
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: 1.2;
+}
+
+.creator {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.separator {
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,38 @@
+.cancelPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-2xl) 0;
+  text-align: center;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.message {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  margin: 0;
+  max-width: 480px;
+}
+
+.pricingLink {
+  padding: var(--space-sm) var(--space-xl);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.pricingLink:hover {
+  background: var(--color-accent-hover);
+}

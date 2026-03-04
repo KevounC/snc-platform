@@ -1,0 +1,47 @@
+/* ── Booking Item ── */
+
+.serviceName {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ── Status Badge ── */
+
+.status {
+  text-transform: capitalize;
+}
+
+.statusPending {
+  color: var(--color-accent);
+  background: var(--color-accent-bg);
+}
+
+.statusApproved {
+  color: var(--color-success);
+  background: var(--color-success-bg);
+}
+
+.statusDenied {
+  color: var(--color-error);
+  background: var(--color-error-bg);
+}
+
+/* ── Detail Lines ── */
+
+.dates {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.notes {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.submittedDate {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}

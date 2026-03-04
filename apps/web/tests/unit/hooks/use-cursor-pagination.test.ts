@@ -1,0 +1,228 @@
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { renderHook, act, waitFor } from "@testing-library/react";
+
+import { useCursorPagination } from "../../../src/hooks/use-cursor-pagination.js";
+
+// ── Helpers ──
+
+function makeResponse(data: unknown, status = 200): Response {
+  return new Response(JSON.stringify(data), { status });
+}
+
+// ── Tests ──
+
+describe("useCursorPagination", () => {
+  beforeEach(() => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(() =>
+        Promise.resolve(
+          makeResponse({ items: ["a", "b"], nextCursor: null }),
+        ),
+      ),
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.unstubAllGlobals();
+  });
+
+  it("fetches initial page on mount", async () => {
+    const { result } = renderHook(() =>
+      useCursorPagination<string>({
+        buildUrl: () => "http://localhost/api/items",
+      }),
+    );
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(result.current.items).toEqual(["a", "b"]);
+    expect(result.current.nextCursor).toBeNull();
+    expect(result.current.error).toBeNull();
+  });
+
+  it("starts in loading state", () => {
+    vi.stubGlobal("fetch", vi.fn().mockReturnValue(new Promise(() => {})));
+
+    const { result } = renderHook(() =>
+      useCursorPagination<string>({
+        buildUrl: () => "http://localhost/api/items",
+      }),
+    );
+
+    expect(result.current.isLoading).toBe(true);
+  });
+
+  it("sets error state when response is not ok", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(() =>
+        Promise.resolve(makeResponse({ error: "Not found" }, 404)),
+      ),
+    );
+
+    const { result } = renderHook(() =>
+      useCursorPagination<string>({
+        buildUrl: () => "http://localhost/api/items",
+      }),
+    );
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(result.current.error).toBe("Failed to load");
+    expect(result.current.items).toEqual([]);
+  });
+
+  it("sets error state when fetch throws", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockRejectedValue(new Error("Network error")),
+    );
+
+    const { result } = renderHook(() =>
+      useCursorPagination<string>({
+        buildUrl: () => "http://localhost/api/items",
+      }),
+    );
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(result.current.error).toBe("Network error");
+    expect(result.current.items).toEqual([]);
+  });
+
+  it("clears error state when a new fetch is triggered (deps change)", async () => {
+    let shouldFail = true;
+    const mockFetch = vi.fn().mockImplementation(() => {
+      if (shouldFail) {
+        return Promise.reject(new Error("Network error"));
+      }
+      return Promise.resolve(makeResponse({ items: ["a"], nextCursor: null }));
+    });
+    vi.stubGlobal("fetch", mockFetch);
+
+    const { result, rerender } = renderHook(
+      ({ filter }: { filter: string }) =>
+        useCursorPagination<string>({
+          buildUrl: () => `http://localhost/api/items?filter=${filter}`,
+          deps: [filter],
+        }),
+      { initialProps: { filter: "a" } },
+    );
+
+    await waitFor(() => {
+      expect(result.current.error).toBe("Network error");
+    });
+
+    shouldFail = false;
+    rerender({ filter: "b" });
+
+    await waitFor(() => {
+      expect(result.current.error).toBeNull();
+      expect(result.current.items).toEqual(["a"]);
+    });
+  });
+
+  it("forwards fetchOptions to fetch call", async () => {
+    const mockFetch = vi.fn().mockImplementation(() =>
+      Promise.resolve(makeResponse({ items: [], nextCursor: null })),
+    );
+    vi.stubGlobal("fetch", mockFetch);
+
+    const { result } = renderHook(() =>
+      useCursorPagination<string>({
+        buildUrl: () => "http://localhost/api/items",
+        fetchOptions: { credentials: "include" },
+      }),
+    );
+
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(false);
+    });
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      "http://localhost/api/items",
+      { credentials: "include" },
+    );
+  });
+
+  it("appends items on loadMore", async () => {
+    let callCount = 0;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(() => {
+        callCount++;
+        if (callCount === 1) {
+          return Promise.resolve(
+            makeResponse({ items: ["a"], nextCursor: "cursor-2" }),
+          );
+        }
+        return Promise.resolve(
+          makeResponse({ items: ["b"], nextCursor: null }),
+        );
+      }),
+    );
+
+    const { result } = renderHook(() =>
+      useCursorPagination<string>({
+        buildUrl: (cursor) =>
+          cursor
+            ? `http://localhost/api/items?cursor=${cursor}`
+            : "http://localhost/api/items",
+      }),
+    );
+
+    await waitFor(() => {
+      expect(result.current.items).toEqual(["a"]);
+    });
+
+    act(() => {
+      result.current.loadMore();
+    });
+
+    await waitFor(() => {
+      expect(result.current.items).toEqual(["a", "b"]);
+    });
+
+    expect(result.current.nextCursor).toBeNull();
+  });
+
+  it("resets items and refetches when deps change", async () => {
+    let type = "video";
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockImplementation(() =>
+        Promise.resolve(
+          makeResponse({ items: [type], nextCursor: null }),
+        ),
+      ),
+    );
+
+    const { result, rerender } = renderHook(
+      ({ t }: { t: string }) =>
+        useCursorPagination<string>({
+          buildUrl: () => `http://localhost/api/items?type=${t}`,
+          deps: [t],
+        }),
+      { initialProps: { t: "video" } },
+    );
+
+    await waitFor(() => {
+      expect(result.current.items).toEqual(["video"]);
+    });
+
+    type = "audio";
+    rerender({ t: "audio" });
+
+    await waitFor(() => {
+      expect(result.current.items).toEqual(["audio"]);
+    });
+  });
+});

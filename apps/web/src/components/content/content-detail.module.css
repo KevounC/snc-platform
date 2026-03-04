@@ -1,0 +1,7 @@
+/* ── Detail Page Container ── */
+
+.detailPage {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-lg) 0;
+}

@@ -1,0 +1,95 @@
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useCallback, useEffect, useState } from "react";
+import type React from "react";
+import type { UserSubscriptionWithPlan } from "@snc/shared";
+
+import { fetchAuthState } from "../../lib/auth.js";
+import {
+  fetchMySubscriptions,
+  cancelSubscription,
+} from "../../lib/subscription.js";
+import { SubscriptionList } from "../../components/subscription/subscription-list.js";
+import listingStyles from "../../styles/listing-page.module.css";
+import settingsStyles from "../../styles/settings-page.module.css";
+
+export const Route = createFileRoute("/settings/subscriptions")({
+  beforeLoad: async () => {
+    const { user } = await fetchAuthState();
+    if (!user) {
+      throw redirect({ to: "/login" });
+    }
+  },
+  component: SubscriptionManagementPage,
+});
+
+function SubscriptionManagementPage(): React.ReactElement {
+  const [subscriptions, setSubscriptions] = useState<UserSubscriptionWithPlan[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [cancelingId, setCancelingId] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function load(): Promise<void> {
+      try {
+        const result = await fetchMySubscriptions();
+        if (!cancelled) setSubscriptions(result);
+      } catch {
+        if (!cancelled) setError("Failed to load subscriptions");
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    }
+
+    void load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleCancel = useCallback(async (subscriptionId: string): Promise<void> => {
+    const confirmed = window.confirm(
+      "Are you sure you want to cancel this subscription? " +
+        "You will retain access until the end of your current billing period.",
+    );
+    if (!confirmed) return;
+
+    setCancelingId(subscriptionId);
+    setError(null);
+
+    try {
+      await cancelSubscription(subscriptionId);
+      const refreshed = await fetchMySubscriptions();
+      setSubscriptions(refreshed);
+    } catch (e) {
+      setError(
+        e instanceof Error ? e.message : "Failed to cancel subscription",
+      );
+    } finally {
+      setCancelingId(null);
+    }
+  }, []);
+
+  return (
+    <div className={settingsStyles.page}>
+      <h1 className={listingStyles.heading}>My Subscriptions</h1>
+
+      {error !== null && (
+        <div className={settingsStyles.error} role="alert">
+          {error}
+        </div>
+      )}
+
+      {isLoading ? (
+        <p className={listingStyles.status}>Loading subscriptions...</p>
+      ) : (
+        <SubscriptionList
+          subscriptions={subscriptions}
+          onCancel={handleCancel}
+        />
+      )}
+    </div>
+  );
+}

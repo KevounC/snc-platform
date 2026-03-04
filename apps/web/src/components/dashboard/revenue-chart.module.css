@@ -1,0 +1,107 @@
+/* ── Chart Container ── */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* ── Bar Row ── */
+
+.barRow {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  height: 200px;
+}
+
+/* ── Individual Bar Column ── */
+
+.barColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  height: 100%;
+  justify-content: flex-end;
+  position: relative;
+}
+
+/* ── Bar ── */
+
+.bar {
+  width: 100%;
+  background: var(--color-accent);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: background-color 0.15s;
+  cursor: default;
+  position: relative;
+}
+
+.bar:hover {
+  background: var(--color-accent-hover);
+}
+
+/* ── Tooltip ── */
+
+.tooltip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+  white-space: nowrap;
+  pointer-events: none;
+  margin-bottom: var(--space-xs);
+}
+
+.bar:hover .tooltip {
+  display: block;
+}
+
+/* ── Month Label ── */
+
+.monthLabel {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* ── Empty State ── */
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+}
+
+/* ── Loading Bars ── */
+
+.loadingBar {
+  width: 100%;
+  background: var(--color-border);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  animation: chartPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes chartPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}

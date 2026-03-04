@@ -1,0 +1,35 @@
+/* ── Filter Bar Container ── */
+
+.filterBar {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-md);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Filter Buttons ── */
+
+.filterButton {
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.filterButton:hover {
+  color: var(--color-text);
+}
+
+.filterButtonActive {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}

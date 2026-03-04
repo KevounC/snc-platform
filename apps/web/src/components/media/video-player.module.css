@@ -1,0 +1,16 @@
+/* ── Wrapper ── */
+
+.wrapper {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #000;
+}
+
+/* ── Video Element ── */
+
+.video {
+  display: block;
+  width: 100%;
+  height: auto;
+}

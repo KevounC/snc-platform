@@ -1,0 +1,267 @@
+/* ── Page Layout ── */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  margin: 0;
+}
+
+/* ── Intro ── */
+
+.intro {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.intro a {
+  color: var(--color-link, var(--color-primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.intro a:hover {
+  color: var(--color-link-hover, var(--color-primary-hover));
+}
+
+/* ── KPI Cards Row ── */
+
+.kpiRow {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+@media (max-width: 767px) {
+  .kpiRow {
+    flex-direction: column;
+  }
+}
+
+.kpiRow > * {
+  flex: 1;
+}
+
+/* ── KPI Value Colors ── */
+
+.valueError {
+  color: var(--color-error);
+}
+
+.valueSuccess {
+  color: var(--color-success, #4caf50);
+}
+
+/* ── Net Summary Card ── */
+
+.summaryCard {
+  align-self: center;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-lg) var(--space-xl);
+  text-align: center;
+}
+
+.summaryLabel {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summaryValue {
+  margin: var(--space-xs) 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl, 2rem);
+}
+
+.summaryMath {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* ── Subsection Heading ── */
+
+.subsectionHeading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+/* ── Sections ── */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sectionHeading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  margin: 0;
+}
+
+/* ── Error ── */
+
+.error {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-sm);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+}
+
+/* ── Status ── */
+
+.status {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  padding: var(--space-2xl) 0;
+}
+
+/* ── Entry Log Table ── */
+
+.entryTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+}
+
+.entryTable th,
+.entryTable td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.entryTable th {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Methodology ── */
+
+.methodologyIntro {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.methodologyDetails {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.methodologyDetails + .methodologyDetails {
+  border-top: none;
+  border-radius: 0;
+}
+
+.methodologyDetails:first-of-type {
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.methodologyDetails:last-of-type {
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.methodologyDetails:only-of-type {
+  border-radius: var(--radius-sm);
+}
+
+.methodologySummary {
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  user-select: none;
+}
+
+.methodologySummary:hover {
+  background: var(--color-surface-hover, rgba(0, 0, 0, 0.03));
+}
+
+.methodologyContent {
+  padding: 0 var(--space-md) var(--space-md);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.methodologyContent p {
+  margin: 0 0 var(--space-sm);
+}
+
+.methodologyContent p:last-child {
+  margin-bottom: 0;
+}
+
+.methodologyNote {
+  font-size: var(--font-size-xs);
+  font-style: italic;
+}
+
+.methodologyNote a {
+  color: var(--color-link, var(--color-primary));
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rateTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-xs);
+  margin: var(--space-sm) 0;
+}
+
+.rateTable th,
+.rateTable td {
+  padding: var(--space-xs) var(--space-sm);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.rateTable th {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Offset Badge ── */
+
+.offsetBadge {
+  display: inline-block;
+  margin-left: var(--space-xs);
+  padding: 1px var(--space-xs);
+  background: var(--color-success, #22c55e);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  vertical-align: middle;
+}

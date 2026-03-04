@@ -1,0 +1,20 @@
+/* ── Shared Landing Section Styles ── */
+
+.section {
+  padding: var(--space-2xl) var(--space-md);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.loading {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,90 @@
+/* ── Empty State ── */
+
+.emptyText {
+  margin: 0 0 var(--space-md) 0;
+}
+
+.browseLink {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.browseLink:hover {
+  text-decoration: underline;
+}
+
+/* ── Subscription Item ── */
+
+.planName {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.planType {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.priceRow {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+}
+
+/* ── Status Badge Variants ── */
+
+.statusActive {
+  color: var(--color-success);
+  background: var(--color-success-bg);
+}
+
+.statusCanceling {
+  color: var(--color-accent);
+  background: var(--color-accent-bg);
+}
+
+.statusInactive {
+  color: var(--color-error);
+  background: var(--color-error-bg);
+}
+
+/* ── Info Lines ── */
+
+.cancelingMessage {
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  font-style: italic;
+}
+
+.billingDate {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* ── Cancel Button ── */
+
+.cancelButton {
+  align-self: flex-start;
+  padding: var(--space-xs) var(--space-md);
+  background: transparent;
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: var(--color-error-bg);
+}
+
+.cancelButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

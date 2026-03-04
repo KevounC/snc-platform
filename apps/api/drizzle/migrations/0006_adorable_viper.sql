@@ -1,0 +1,1 @@
+ALTER TABLE "emissions" ADD COLUMN "projected" boolean DEFAULT false NOT NULL;

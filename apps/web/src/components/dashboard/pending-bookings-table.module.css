@@ -1,0 +1,173 @@
+/* ── Table Container (Desktop) ── */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.headerRow th {
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.row td {
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+/* ── Action Buttons ── */
+
+.actions {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.approveButton,
+.denyButton {
+  padding: var(--space-xs) var(--space-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.approveButton {
+  background: var(--color-success);
+  color: var(--color-bg);
+}
+
+.approveButton:hover {
+  opacity: 0.85;
+}
+
+.denyButton {
+  background: var(--color-error);
+  color: var(--color-bg);
+}
+
+.denyButton:hover {
+  opacity: 0.85;
+}
+
+.approveButton:disabled,
+.denyButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Deny Note Form ── */
+
+.denyForm {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  margin-top: var(--space-sm);
+}
+
+.denyInput {
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  flex: 1;
+  min-width: 120px;
+}
+
+.confirmDenyButton {
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-error);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancelDenyButton {
+  padding: var(--space-xs) var(--space-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+/* ── Empty State ── */
+
+.empty {
+  text-align: center;
+  padding: var(--space-2xl);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+}
+
+/* ── Mobile Card Layout ── */
+
+.cardList {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.cardField {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.cardLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.cardValue {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  text-align: right;
+}
+
+.cardActions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 767px) {
+  .table {
+    display: none;
+  }
+
+  .cardList {
+    display: flex;
+  }
+}

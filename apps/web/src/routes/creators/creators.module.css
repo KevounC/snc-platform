@@ -1,0 +1,7 @@
+/* ── Creators Page Layout ── */
+
+.creatorsPage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}

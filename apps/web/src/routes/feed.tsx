@@ -1,0 +1,88 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import type React from "react";
+import type { ContentType, FeedItem } from "@snc/shared";
+
+import { ContentCard } from "../components/content/content-card.js";
+import { FilterBar } from "../components/content/filter-bar.js";
+import { useCursorPagination } from "../hooks/use-cursor-pagination.js";
+import { API_BASE_URL } from "../lib/config.js";
+import styles from "./feed.module.css";
+import listingStyles from "../styles/listing-page.module.css";
+
+export const Route = createFileRoute("/feed")({
+  component: FeedPage,
+});
+
+// ── Public API ──
+
+function FeedPage(): React.ReactElement {
+  const [activeFilter, setActiveFilter] = useState<ContentType | null>(null);
+
+  const { items, nextCursor, isLoading, loadMore } =
+    useCursorPagination<FeedItem>({
+      buildUrl: (cursor) =>
+        buildFeedUrl({ filter: activeFilter, cursor, limit: 12 }),
+      deps: [activeFilter],
+    });
+
+  const handleFilterChange = (filter: ContentType | null) => {
+    setActiveFilter(filter);
+  };
+
+  const handleLoadMore = loadMore;
+
+  return (
+    <div className={styles.feedPage}>
+      <h1 className={listingStyles.heading}>Content Feed</h1>
+      <FilterBar activeFilter={activeFilter} onFilterChange={handleFilterChange} />
+      {isLoading && items.length === 0 ? (
+        <p className={listingStyles.status}>Loading...</p>
+      ) : items.length === 0 ? (
+        <p className={listingStyles.status}>No content found.</p>
+      ) : (
+        <>
+          <div className="content-grid">
+            {items.map((item) => (
+              <ContentCard key={item.id} item={item} />
+            ))}
+          </div>
+          {nextCursor && (
+            <div className={listingStyles.loadMoreWrapper}>
+              <button
+                type="button"
+                className={listingStyles.loadMoreButton}
+                onClick={handleLoadMore}
+                disabled={isLoading}
+              >
+                {isLoading ? "Loading..." : "Load more"}
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ── Private Helpers ──
+
+function buildFeedUrl({
+  filter,
+  cursor,
+  limit,
+}: {
+  filter: ContentType | null;
+  cursor: string | null;
+  limit: number;
+}): string {
+  const url = new URL(`${API_BASE_URL}/api/content`);
+  url.searchParams.set("limit", String(limit));
+  if (filter) {
+    url.searchParams.set("type", filter);
+  }
+  if (cursor) {
+    url.searchParams.set("cursor", cursor);
+  }
+  return url.toString();
+}

@@ -1,0 +1,43 @@
+.servicesPage {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+.serviceList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.serviceItem {
+  /* Wraps a ServiceCard + optional BookingForm */
+}
+
+.formWrapper {
+  margin-top: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.successMessage {
+  margin-top: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(91, 181, 181, 0.1);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-sm);
+  color: var(--color-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.error {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+  border-radius: var(--radius-sm);
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-lg);
+}

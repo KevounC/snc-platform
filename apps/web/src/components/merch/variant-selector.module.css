@@ -1,0 +1,43 @@
+/* ── Container ── */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+/* ── Chip Base ── */
+
+.chip {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.chip:hover:not(:disabled) {
+  border-color: var(--color-text-muted);
+}
+
+/* ── Selected State ── */
+
+.chipSelected {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.chipSelected:hover:not(:disabled) {
+  border-color: var(--color-accent);
+}
+
+/* ── Disabled / Unavailable State ── */
+
+.chipDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

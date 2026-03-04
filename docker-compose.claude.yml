@@ -1,0 +1,9 @@
+services:
+  postgres:
+    networks:
+      - default
+      - claude-net
+
+networks:
+  claude-net:
+    external: true

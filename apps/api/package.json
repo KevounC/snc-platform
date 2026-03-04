@@ -1,0 +1,39 @@
+{
+  "name": "@snc/api",
+  "version": "0.1.0",
+  "description": "S/NC Hono API backend",
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --import ./src/env.ts src/index.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "db:generate": "node --import tsx node_modules/drizzle-kit/bin.cjs generate",
+    "db:migrate": "node --import tsx node_modules/drizzle-kit/bin.cjs migrate",
+    "seed:admin": "tsx src/scripts/seed-admin.ts",
+    "seed:demo": "tsx src/scripts/seed-demo.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.14.0",
+    "@hono/standard-validator": "^0.2.2",
+    "@scalar/hono-api-reference": "^0.9.46",
+    "@snc/shared": "workspace:*",
+    "better-auth": "^1.4.19",
+    "drizzle-orm": "^0.45.1",
+    "hono": "^4.12.2",
+    "hono-openapi": "latest",
+    "postgres": "^3.4.7",
+    "stripe": "latest",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "dotenv": "^17.3.1",
+    "drizzle-kit": "latest",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}

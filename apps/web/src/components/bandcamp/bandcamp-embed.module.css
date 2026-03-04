@@ -1,0 +1,12 @@
+/* ── Embed Container ── */
+
+.container {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.iframe {
+  display: block;
+  border: none;
+}

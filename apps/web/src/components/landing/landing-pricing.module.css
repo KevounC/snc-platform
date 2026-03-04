@@ -1,0 +1,81 @@
+/* ── Section Override ── */
+
+.sectionElevated {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+}
+
+.headingCenter {
+  margin: 0 0 var(--space-sm) 0;
+  text-align: center;
+}
+
+.loading {
+  text-align: center;
+}
+
+.subheading {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  text-align: center;
+  margin: 0 0 var(--space-xl) 0;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Plan Card Grid ── */
+
+.planGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-lg);
+  max-width: 640px;
+  margin: 0 auto var(--space-lg) auto;
+  justify-items: center;
+}
+
+/* ── Subscribed Banner ── */
+
+.subscribedBanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.subscribedText {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+.subscribedLink {
+  color: var(--color-accent);
+  font-size: var(--font-size-sm);
+  text-decoration: underline;
+}
+
+.subscribedLink:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ── Learn More Link ── */
+
+.learnMore {
+  display: block;
+  text-align: center;
+  margin-top: var(--space-lg);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.learnMore:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}

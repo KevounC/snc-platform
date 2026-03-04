@@ -1,0 +1,17 @@
+/* ── Demo Banner ── */
+
+.banner {
+  position: sticky;
+  top: 0;
+  z-index: 101;
+  height: var(--demo-banner-height, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
